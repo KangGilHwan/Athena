@@ -7,10 +7,10 @@ module.exports = function() {
         console.log(`group find error : ${err}`);
         let sql = 'SELECT * FROM groupinfo';
         con.query(sql, function(error, rows, fields) {
+          con.release();
           if(error){
             return callback(error);
           }
-          con.release();
           callback(null, rows);
         });
       });
