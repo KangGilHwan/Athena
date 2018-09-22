@@ -29,6 +29,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+//Todo: room을 만들면 서버 메모리에 Room, Room안의 user를 저장한 후 메세지는 DB에 저장 후 가져온다.
 io.on('connection', (socket) => {
   console.log(`hello ${socket.id}, nickname : ${socket.handshake.query.nickname}`);
   const nickname = socket.handshake.query.nickname;
@@ -54,10 +55,12 @@ io.on('connection', (socket) => {
     console.log(`room id : ${data.roomId}`);
   });
 
-  socket.on('message', (data) => {
-    console.log(`room id : ${data.roomId}, message : ${data.message}`);
+  socket.on('message', ({ roomId, message }) => {
+    console.log(`room id : ${roomId}, message : ${message}`);
+    socket.to(roomId).emit('room', message);
+    socket.emit('room', message);
+   });
   });
-});
 
 //라우터 사용 - 앞의 url로 시작하는 요청이 들어오면 뒤의 라우터 사용
 app.use('/oauth', oauth);
