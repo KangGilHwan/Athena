@@ -1,24 +1,38 @@
-
+import {inject,observer} from 'mobx-react';
 import * as React from 'react';
 import axios from 'axios';
 import WritingBoard from './WritingBoard';
 import BoardList from './BoardList';
 import { BrowserRouter as Router, Link ,NavLink, Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
+import {action,computed,observable} from 'mobx';
 
+
+
+
+
+
+@inject('groupSelect')
+@observer
 class Board extends React.Component{
-
   state = {
     information: [
 
     ],
-
   }
+   store = this.props.groupSelect;
 
   constructor(props) {
           super(props);
           console.log("Boardconstructor");
-          this.fetchBoardInfo(2);
+          this.fetchBoardInfo(this.store.groupId);
   }
+componentWillReceiveProps(){
+  var imsi = this.store.getGroupId();
+  console.log(imsi);
+  this.fetchBoardInfo(imsi);
+}
+
+
 
   componentWillMount(){
       console.log("BoardcomponentWillMount");
@@ -38,13 +52,20 @@ class Board extends React.Component{
   }
 
   handleCreate = (data) => {
-    this.fetchBoardInfo(2);
+
+    this.fetchBoardInfo(this.store.groupId);
   }
 
   componentDidMount(){
     console.log("componentDidMount");
 }
+  // componentWillUpdate(){
+  //   const store = this.props.groupSelect;
+  //   this.fetchBoardInfo(store.getGroupId());
+  // }
 
+
+  power = [];
   informationConcat(response){
     let abc=[];
     let i=0;
@@ -56,15 +77,22 @@ class Board extends React.Component{
     this.setState({
       information:abc
     })
+    this.power=abc
+
 
   }
 componentWillReact(){
   console.log("componentWillReact");
+
 }
+
+componentWill
+
 
 
 
    render(){
+
      console.log("renderBoard");
     return(
       <div>
@@ -74,7 +102,7 @@ componentWillReact(){
       <li><NavLink activeStyle={{fontSize:24}} to="/writing_board"> 글작성 </NavLink></li>
         <Switch>
 
-        <Route exact={true} path="/writing_board"  render={()=><WritingBoard onCreate={this.handleCreate.bind(this)}/>}/>
+        <Route exact={true} path="/writing_board"  render={()=><WritingBoard groupSelect={this.store.groupId} onCreate={this.handleCreate.bind(this)}/>}/>
 
 
       </Switch>

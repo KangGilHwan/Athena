@@ -3,8 +3,6 @@ import axios from 'axios';
 import React, { Component } from 'react';
 
 class WritingBoard extends Component {
-  // input = React.createRef();
-
   state = {
     contents: '',
     title: '',
@@ -15,8 +13,9 @@ class WritingBoard extends Component {
       e.preventDefault();
       //a는 성공여부확인
       var a = 1;
+      const groupSelect = this.props.groupSelect;
 
-      await axios.post('http://localhost:8080/groups/2/boards',{
+      await axios.post('http://localhost:8080/groups/'+groupSelect+'/boards',{
         contents : this.state.contents,
         title : this.state.title,
       })
@@ -47,7 +46,8 @@ class WritingBoard extends Component {
 
 
   render() {
-
+    const groupSelect = this.props.groupSelect;
+    console.log("WritingBoard의" + groupSelect);
     return (
       <div>
 

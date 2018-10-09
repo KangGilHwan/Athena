@@ -1,10 +1,13 @@
+import {inject,observer} from 'mobx-react';
 import axios from 'axios';
 import React, { Component } from 'react';
 import MakeGroupM from './components/MakeGroupM';
 import GroupList from './components/GroupList';
 
-class MakeGroup extends Component {
 
+@inject('groupSelect')
+@observer
+class MakeGroup extends Component {
   state = {
     a: 1,
     information: [
@@ -28,7 +31,9 @@ class MakeGroup extends Component {
     console.log("handle");
     this.fetchGroupInfo();
   }
-
+  handlePageChange() {
+     window.location.hash = "/";
+   }
   informationConcat(response){
     let abc=[];
     let i=0;
@@ -53,16 +58,24 @@ class MakeGroup extends Component {
   }
 
   componentWillMount(){
-      console.log("componentWillMount");
       this.fetchGroupInfo();
 
   }
+  onClick=(id)=>{
+    const store =this.props.groupSelect;
+   store.setGroupId(id);
+   // this.handlePageChange();
+
+ }
+
   render() {
+    const store =this.props.groupSelect;
     console.log("MakeGroupRender");
     return (
       <div>
         <MakeGroupM onCreate={this.handleCreate}/>
         <GroupList
+          onClick={this.onClick}
           data={this.state.information}
         />
       </div>

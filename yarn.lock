@@ -101,8 +101,8 @@
   resolved "https://registry.yarnpkg.com/@types/history/-/history-4.7.0.tgz#2fac51050c68f7d6f96c5aafc631132522f4aa3f"
 
 "@types/jest@^23.3.1":
-  version "23.3.2"
-  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.2.tgz#07b90f6adf75d42c34230c026a2529e56c249dbb"
+  version "23.3.3"
+  resolved "https://registry.yarnpkg.com/@types/jest/-/jest-23.3.3.tgz#246ebcc52771d2327bb8e37aa971b412d9dc4237"
 
 "@types/json5@^0.0.29":
   version "0.0.29"
@@ -6128,8 +6128,8 @@ react-minimalist-portal@^2.3.1:
     prop-types "^15.6.1"
 
 react-responsive-modal@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-3.3.0.tgz#adcdb9c1f9b19a6c86faed38f9fcaf7fd3b4c61a"
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-3.4.0.tgz#8aa3fa39d8e2e054fbc66e895460f773c9f598b1"
   dependencies:
     classnames "^2.2.6"
     no-scroll "^2.1.1"

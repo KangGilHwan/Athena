@@ -1,5 +1,7 @@
+import {inject,observer} from 'mobx-react';
 import * as React from 'react';
-import { BrowserRouter as Router, Link ,NavLink, Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
+
+import { BrowserRouter as Router, Link ,NavLink, Redirect, Route, RouteComponentProps, Switch, withRouter } from 'react-router-dom';
 import Board from './components/Board';
 import Chat from './components/Chat';
 
@@ -21,13 +23,19 @@ const admin = ()=>{
   : <Redirect to ="/"/>;
 
 };
-
-
+// interface AppProps{
+  // groupSelect ?: GroupSelect;
+// }
+@inject('groupSelect')
+@observer
 class ActivePage extends React.Component{
-  public render(){
+ render(){
+   const store =this.props.groupSelect;
+console.log(this.props.groupSelect.groupId);
+console.log(store.groupId);
     return(
       <div>
-
+      {store.groupId}
         <Switch>
         <Route exact={true} path="/main" component={info}/>
         <Route exact={true} path="/board" component={Board}/>
@@ -43,4 +51,4 @@ class ActivePage extends React.Component{
 
   }
 }
-export default ActivePage;
+export default withRouter(ActivePage);
