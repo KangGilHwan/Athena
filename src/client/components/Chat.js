@@ -1,8 +1,19 @@
-
 import * as React from 'react';
+import io from "socket.io-client";
 
 class Chat extends React.Component{
   state={messageContent : null,}
+
+constructor(props) {
+  super(props);
+  this.socket = io('http://localhost:8080', {transports: ['websocket'], query : { nickname : 'kang'}});
+        // this.socket = io('http://localhost:8080', {query : { nickname : 'kang'}});
+        console.log("create");
+        this.socket.on("room", (data) => {
+          console.log(`room massage : ${data}`);
+        });
+}
+
   setMessageContent =(messageContent)=>{
       this.setState({
         messageContent:messageContent,
@@ -11,9 +22,25 @@ class Chat extends React.Component{
 
 
   }
+
+  joinRoom = () => {
+      return new Promise((resolve, reject) => {
+        this.socket.emit("joinRoom", { roomId : 2 });
+        this.socket.on("room", (data)=> {
+          console.log(`room data ${data}`);
+        })
+        resolve();
+      })
+    }
+
   submit=(e)=>{
     e.preventDefault();
-    
+
+    console.log("create2");
+        this.socket.emit("createRoom", { name : "codesquad" });
+        this.socket.emit("joinRoom", { roomId : 2 });
+        this.socket.emit("message", { roomId : 3 , message : "Hi" });
+        console.log("submit");
   }
 render(){
     return(
