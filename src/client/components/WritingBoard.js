@@ -15,7 +15,7 @@ class WritingBoard extends Component {
     e.preventDefault();
     //a는 성공여부확인
     const formData = new FormData();
-    formData.append('file', this.state.file);
+    formData.append('sampleFile', this.state.file);
     formData.append('contents', this.state.contents);
     formData.append('title', this.state.title);
 
